@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Component!</title>
+
+  <!-- bootsrap for base styles -->
+  <link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div id="app" class="container-sm">
+    <h2 class="text-center my-4">{{ title }}</h2>
+    <form v-on:submit.prevent class="my-4">
+      <div class="form-row">
+        <label for="list-title">List name:</label>
+      </div>
+      <div class="form-row">
+        <input id="list-title" class="col form-control" type="text" v-model="list">
+        <button @click="createList" type="submit" class="col-2 btn btn-primary ml-2">Crete New List</button>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-5 my-5 mx-4" v-for="(list, i) in lists">
+        <todo-list :title="list"
+            :key="i"
+            @delete="removeList">
+        </todo-list>
+      </div>
+    </div>
+  </div>
+
+<!-- Vue js -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

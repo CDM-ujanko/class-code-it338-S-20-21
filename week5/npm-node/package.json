@@ -1,0 +1,14 @@
+{
+  "name": "npm-node",
+  "version": "1.0.0",
+  "description": "That thing I made that does amazing stuff!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Uros Jankovic",
+  "license": "ISC",
+  "dependencies": {
+    "swiper": "^6.5.8"
+  }
+}

@@ -3,7 +3,7 @@
     <div class="card">
       <img class="card-img-top" :src="post.media[0].src" :alt=post.media[0].title>
       <div class="card-body">
-        <h5 class="card-title">{{ post.name }}</h5>
+        <router-link :to="'/post/' + post.index" class="card-title">{{ post.name }}</router-link>
         <p class="card-text">{{ post.date  }}</p>
         <p class="card-text">{{ post.date | date }}</p>
         <p class="card-text">{{ post.text }}</p>

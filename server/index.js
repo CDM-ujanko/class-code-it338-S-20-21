@@ -1,6 +1,7 @@
 let express = require('express');
-// let cors = require('cors');
+let bodyParser = require('body-parser');
 let posts = require('./db/posts.json');
+let users = require('./db/users.json')
 
 const PORT = 8000;
 let app = express();
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static('assets'));
+app.use(bodyParser.json());
 
 app.get('/', (req, resp) => {
   resp.json('posts');
@@ -40,6 +42,15 @@ app.get('/post/:id', (req, resp) => {
   }
 
   resp.json(posts[req.params.id]);
+})
+
+app.post('/login', (req, resp) => {
+  if (req.body.username && req.body.password) {
+    resp.json(users[0]);
+    return;
+  }
+
+  resp.status(500).json('Invalid login');
 })
 
 app.listen(PORT, () => {

@@ -1,18 +1,20 @@
 <template>
   <div>
-    <div v-if="!loading" class="row">
-      <post v-for="post in posts"
+    <div v-if="!$store.state.loading" class="row">
+      <post v-for="post in $store.state.posts"
           :key="post._id"
           :post="post"
           class="col-4">
       </post>
 
       <b-pagination
-          v-if="total > 0"
+          v-if="$store.state.total > 0"
           v-model="page"
-          :total-rows="total"
-          :per-page="pageSize"
+          :total-rows="$store.state.total"
+          :per-page="$store.state.pageSize"
           aria-controls="my-table"
+          class="my-4"
+          align="fill"
       ></b-pagination>
     </div>
     <div v-else class="row">
@@ -23,7 +25,6 @@
 
 <script>
 import Post from '@/components/Post';
-import axios from 'axios';
 
 export default {
   name: 'Home',
@@ -32,42 +33,29 @@ export default {
   },
 
   data() {
-    return {
-      loading: false,
-      page: 1,
-      total: 0,
-      pageSize: 0,
-      posts: []
-    }
+    return {}
   },
 
   created() {
-    this.getPosts();
-  },
-
-  watch: {
-    page: function () {
-      this.getPosts()
+    if (!this.$store.getters.hasPosts) {
+      this.$store.dispatch('fetchPosts');
     }
   },
 
-  methods: {
-    getPosts() {
-      this.loading = true;
-      axios.get(`http://localhost:8000/posts?page=${this.page - 1}`)
-        .then((resp) => {
-          console.log(resp);
-          this.posts = resp.data.posts;
-          this.total = resp.data.total;
-          this.pageSize = resp.data.pageSize;
-        })
-          .catch(console.error)
-          .then(() => {
-            this.loading = false;
-          })
+  computed: {
+    page: {
+      get() {
+        return this.$store.getters.displayPage;
+      },
 
+      set(val) {
+        this.$store.commit('setPage', val - 1);
+        this.$store.dispatch('fetchPosts');
+      }
     }
-  }
+  },
+
+  methods: {}
 }
 </script>
 

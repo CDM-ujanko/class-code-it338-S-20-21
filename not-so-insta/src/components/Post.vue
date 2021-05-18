@@ -24,10 +24,7 @@
     },
     filters: {
       date(dateString) {
-
         let date = new Date(dateString);
-
-        console.log(date);
         return date.toLocaleDateString();
       }
     }

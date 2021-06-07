@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div>
     <post v-if="post"
         :key="post._id"
         :post="post"
@@ -32,7 +32,7 @@ export default {
 
   methods: {
     getPost() {
-      axios.get(`http://localhost:8000/post/${this.$route.params.id}`)
+      axios.get(`http://classexample.com:8000/post/${this.$route.params.id}`)
           .then((resp) => {
             console.log(resp);
             this.post = resp.data;

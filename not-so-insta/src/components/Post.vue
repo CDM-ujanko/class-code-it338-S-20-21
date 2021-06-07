@@ -10,7 +10,7 @@
         <ul class="card-text">
           <li v-for="(tag, i) in post.tags" :key="i">{{ tag }}</li>
         </ul>
-        <a href="#" class="btn btn-primary">Like</a>
+        <a href="#" class="btn btn-primary like" @click.prevent="like">Like {{ likes }}</a>
       </div>
     </div>
   </div>
@@ -22,10 +22,23 @@
     props: {
       post: Object
     },
+
+    data() {
+      return {
+        likes: 0,
+      }
+    },
+
     filters: {
       date(dateString) {
         let date = new Date(dateString);
         return date.toLocaleDateString();
+      }
+    },
+
+    methods: {
+      like() {
+        this.likes++;
       }
     }
   }

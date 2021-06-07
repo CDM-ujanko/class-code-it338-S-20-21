@@ -98,7 +98,7 @@ const store = new Vuex.Store({
   actions: {
     fetchPosts(context) {
       this.loading = true;
-      axios.get(`http://localhost:8000/posts?page=${context.state.page}`)
+      axios.get(`http://classexample.com:8000/posts?page=${context.state.page}`)
           .then((resp) => {
             console.log(resp);
             context.commit('setPageSize', resp.data.pageSize)
